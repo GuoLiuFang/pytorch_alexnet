@@ -127,3 +127,11 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+# Datasets
+kaggle*
+alexnet_jupyternotebook.py
+dog.jpg
+imagenet_classes.txt
+runs/
+.DS_Store
+pytorch_alexnet.zip
