@@ -120,13 +120,13 @@ preprocess = transforms.Compose(
 TRAIN_IMG_DIR = './kagglecatsanddogs_3367a/PetImages/'
 dataset = datasets.ImageFolder(TRAIN_IMG_DIR, transform=preprocess)
 print('Dataset created')
-BATCH_SIZE = 128
+BATCH_SIZE = 1024
 from torch.utils import data
 dataloader = data.DataLoader(
     dataset=dataset,
     batch_size=BATCH_SIZE,
     shuffle=True,
-    num_workers=8,
+    num_workers=0,
     drop_last=True
 )
 print("Dataloader created")

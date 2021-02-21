@@ -135,3 +135,4 @@ imagenet_classes.txt
 runs/
 .DS_Store
 pytorch_alexnet.zip
+save_model/
