@@ -1,4 +1,3 @@
-# %%
 import torch
 import torch.nn as nn
 # 有新的版本了。
@@ -90,7 +89,6 @@ class AlexNet(nn.Module):
         # according to caffe last fc 
         nn.init.normal_(self.classifier[-1].weight, mean=0, std=0.01)
         nn.init.constant_(self.classifier[-1].bias, 0)
-# %%
 LOG_DIR='./runs/'
 
 seed = torch.initial_seed()
@@ -107,7 +105,6 @@ alexnet = AlexNet(num_classes=NUM_CLASSES).to(device)
 alexnet = torch.nn.parallel.DataParallel(alexnet, device_ids=DEVICE_IDS)
 print(alexnet)
 print('AlexNet created')
-# %%
 import torchvision.datasets as datasets
 from torchvision import transforms
 IMAGE_DIM = 227
@@ -123,28 +120,24 @@ preprocess = transforms.Compose(
 TRAIN_IMG_DIR = './kagglecatsanddogs_3367a/PetImages/'
 dataset = datasets.ImageFolder(TRAIN_IMG_DIR, transform=preprocess)
 print('Dataset created')
-# %%
-BATCH_SIZE = 32
+BATCH_SIZE = 1024
 from torch.utils import data
 dataloader = data.DataLoader(
     dataset=dataset,
     batch_size=BATCH_SIZE,
     shuffle=True,
-    num_workers=8,
+    num_workers=0,
     drop_last=True
 )
 print("Dataloader created")
-# %%
 import torch.optim as optim
 # The learning rate was initialized at 0.01
 # with a batch size of 128 examples, momentum of 0.9, and weight decay of 0.0005. 
 # 5e-4很经典这个数字。
 optimizer = optim.Adam(params=alexnet.parameters(), lr=0.01, weight_decay=0.0005)
 print('Optimizer created')
-# %%
 lr_scheduler = optim.lr_scheduler.StepLR(optimizer=optimizer, step_size=10, gamma=0.1)
 print('LR Scheduler created')
-# %%
 import os
 print('Starting training...')
 import torch.nn.functional as F
